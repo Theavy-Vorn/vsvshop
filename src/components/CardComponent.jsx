@@ -56,10 +56,13 @@ const CardComponent = () => {
               </button>
 
               <img
-                src={pro.images}
+              
+                src={pro.images[0]}
                 alt={pro.title}
+                crossOrigin="anonymous"
                 className="h-50 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-50"
-              />
+            />
+
 
               <div className="relative border border-gray-100 bg-white p-6">
                 <p className="text-red-700 font-bold">

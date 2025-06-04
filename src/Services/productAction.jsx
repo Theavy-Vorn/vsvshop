@@ -29,7 +29,7 @@ export const insertProduct= async(product) =>{
 }
 
 // function to insert file image
-export const fileUpload = async(image) =>{
+export const onFileUploadServer = async(image) =>{
   const res = await axios({
     method:"POST",
     headers:{

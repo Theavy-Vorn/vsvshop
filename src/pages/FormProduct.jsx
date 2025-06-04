@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchCategories, insertProduct, fileUpload } from '../Services/productAction';
+import { fetchCategories, insertProduct, fileUpload, onFileUploadServer } from '../Services/productAction';
 
 const FormProduct = () => {
   const [categories, setCategories] = useState([]);
@@ -30,8 +30,8 @@ const FormProduct = () => {
     console.log(product);
   };
 
-  // Handle file selection
-  const onFileUpload = (e) => {
+  // Handle file selection preview
+  const onPreview = (e) => {
      console.log(e.target.files)
      setSource(e.target.files[0])
   };
@@ -39,14 +39,33 @@ const FormProduct = () => {
   // Handle form submission
   const OnHandleSubmit = async (e) => {
     e.preventDefault();
-    insertProduct(product)
-    .then(res =>{
-        res.json()
-        if(res.status == 201){
-            alert("Created success !")
-        }
-    })
-    .then(res => console.log(res))
+    console.log("submit");
+    //create image object as form data
+    const formData = new FormData()
+    formData.append("file",source)
+    //function to upload data to server
+      onFileUploadServer(formData)
+      .then(res =>{
+        product.images=[res.data.location]
+        console.log(product.images)
+        //insert product including image
+        insertProduct(product)
+        .then(res =>{
+          res.json()
+          if(res.status == 201){
+              alert("Created success !")
+          }
+      })
+        .then(res => console.log(res))
+      })
+    // insertProduct(product)
+    // .then(res =>{
+    //     res.json()
+    //     if(res.status == 201){
+    //         alert("Created success !")
+    //     }
+    // })
+    // .then(res => console.log(res))
    
       
   };
@@ -113,7 +132,7 @@ const FormProduct = () => {
         </div>
 
         <div className="mb-5 ">
-            <input type="file" name="image" id="" onChange={onFileUpload} />
+            <input type="file" name="image" id="" onChange={onPreview} />
           
         </div>
 
