@@ -20,7 +20,7 @@ const ProductDetailPage = () => {
     },[])
    
     return (
-       <div className='min-h-screen bg-purple-100 flex items-center justify-center'>
+       <div className='min-h-screen bg-purple-100 flex items-center justify-center mt-15'>
          <div className='w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl  bg-white rounded-xl shadow-md'>
           <a href="#" className="group relative block overflow-hidden ibg-purple-500 shadow-lg shadow-purple-500/50 rounded-2xl">
             <button
@@ -46,7 +46,8 @@ const ProductDetailPage = () => {
 
             <img
                 src={product.images}
-                alt=""
+                alt={product.title}
+                crossOrigin="anonymous"
                 className="h-50 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
             />
 

@@ -7,6 +7,7 @@ import FooterComponent from './components/FooterComponent';
 import ProductDetailPage from './pages/ProductDetailPage';
 import FormProduct from './pages/FormProduct';
 import Dashboard from './pages/Dashboard';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -15,13 +16,15 @@ function App() {
         <Routes >
           <Route  element={<MainLayout />}>
             <Route path={"/"} element={<HomePage />} />
-            <Route path={"/create"} element={<FormProduct />} />
             <Route path={"/datatable"} element={<Dashboard />} />
+            <Route path={"/create"} element={<FormProduct edit={false} />} />
+            <Route path={"/edit"} element={<FormProduct  edit={true}/>} />
+            <Route path={"products/:id"} element={<ProductDetailPage />} /> 
           </Route>
           
         
-          <Route path={"products/:id"} element={<ProductDetailPage />} /> 
          
+          <Route path={"*"} element={<NotFoundPage />} /> 
         </Routes>
       </BrowserRouter>
       </div>

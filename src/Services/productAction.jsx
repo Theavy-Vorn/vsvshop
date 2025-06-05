@@ -40,3 +40,17 @@ export const onFileUploadServer = async(image) =>{
   })
   return res
 }
+
+//update product by id
+
+export const updateProduct= async(product,id) =>{
+  const res = await fetch(`${base_URL}products/${id}`,{
+    method:"PUT",
+    headers:{
+      "Content-Type"  : "application/json"
+    },
+    body:JSON.stringify(product)
+  })
+ 
+  return res;
+}
