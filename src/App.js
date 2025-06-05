@@ -8,6 +8,10 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import FormProduct from './pages/FormProduct';
 import Dashboard from './pages/Dashboard';
 import NotFoundPage from './pages/NotFoundPage';
+import AboutPage from './pages/AboutPage';
+import ServicePage from './pages/ServicePage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 
 function App() {
   return (
@@ -16,6 +20,8 @@ function App() {
         <Routes >
           <Route  element={<MainLayout />}>
             <Route path={"/"} element={<HomePage />} />
+            <Route path={"/about"} element={<AboutPage />} />
+            <Route path={"/service"} element={<ServicePage />} />
             <Route path={"/datatable"} element={<Dashboard />} />
             <Route path={"/create"} element={<FormProduct edit={false} />} />
             <Route path={"/edit"} element={<FormProduct  edit={true}/>} />
@@ -23,7 +29,8 @@ function App() {
           </Route>
           
         
-         
+          <Route path={"/login"} element={<LoginPage />} />
+          <Route path={"/signup"} element={<SignupPage />} />  
           <Route path={"*"} element={<NotFoundPage />} /> 
         </Routes>
       </BrowserRouter>
