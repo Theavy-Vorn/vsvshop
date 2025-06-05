@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { fetchCategories, insertProduct, fileUpload, onFileUploadServer, updateProduct } from '../Services/productAction';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+   fetchCategories, 
+   insertProduct, 
+   fileUpload, 
+   onFileUploadServer, 
+   updateProduct } 
+   from '../Services/productAction';
 import { useLocation } from 'react-router-dom';
 
 const FormProduct = ({edit})=> {
   //for block image use this (crossOrigin="anonymous" )
   //get data from navigation
   const location = useLocation()
-
+  const fileInputRef = useRef(); // To reset the file input manually
+  const [successMessage, setSuccessMessage] = useState("");
   const [categories, setCategories] = useState([]);
   const [source, setSource] = useState(""); // File object for image preview
   const [product, setProduct] = useState({
@@ -53,64 +60,96 @@ const FormProduct = ({edit})=> {
      setSource(e.target.files[0])
   };
 
-  // Handle form submission
-  const OnHandleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("submit")
-    //check condition whether create or update product
-    if(edit){
-      //it mean that user update with old image
-      if(source == ""){
-        console.log('proudct',product.id)
-        updateProduct(product,product.id)
-        .then(res=>res.json())
-        .then(res=>console.log(res))
-      }
-      else{
-        //user browse new image
-        const image = new FormData()
-        image.append("file",source)
-        onFileUploadServer(image)
-        .then(res=>{
-          product.images =[res.data.location]
-          updateProduct(product,product.id)
-          .then(res=>res.json())
-          .then(res=>console.log(res))
-        })
-        alert("updated successful !");
-      }
-      
-    }else{
-        //create image object as form data
-      const image = new FormData()
-      image.append("file",source)
-      //function to upload data to server
-      onFileUploadServer(image)
-      .then(res => {
-        // Set uploaded image URL to product
-        product.images = [res.data.location];
-        console.log('Uploaded Image:', product.images);
+  
+  // === Reset form after successful submission ===
+  const resetForm = () => {
+    setProduct({
+      id: "",
+      title: "",
+      price: 0,
+      description: "",
+      categoryId: categories.length ? categories[0].id : 3,
+      images: [
+        "https://www.shutterstock.com/image-vector/no-photo-image-viewer-thumbnail-260nw-2495883211.jpg"
+      ]
+    });
+    setSource("");
+    if (fileInputRef.current) fileInputRef.current.value = null;
 
-        // Insert product including image
+    // Optionally clear success message after a while
+    setTimeout(() => setSuccessMessage(""), 5000);
+  };
+
+  // Handle form submission
+ const OnHandleSubmit = async (e) => {
+  e.preventDefault();
+  if (!source && !edit) {
+    setSuccessMessage("Please select an image before submitting.");
+    return;
+  }
+
+  if (edit) {
+    if (source === "") {
+      updateProduct(product, product.id)
+        .then(res => res.json())
+        .then(res => {
+          console.log(res);
+          setSuccessMessage("Updated successfully");
+          setTimeout(() => setSuccessMessage(""), 3000);
+        });
+    } else {
+      const image = new FormData();
+      image.append("file", source);
+      onFileUploadServer(image)
+        .then(res => {
+          product.images = [res.data.location];
+          return updateProduct(product, product.id);
+        })
+        .then(res => res.json())
+        .then(res => {
+          console.log(res);
+          setSuccessMessage("Updated successfully");
+          setTimeout(() => setSuccessMessage(""), 3000);
+          resetForm();
+        });
+    }
+  } else {
+    const image = new FormData();
+    image.append("file", source);
+    onFileUploadServer(image)
+      .then(res => {
+        product.images = [res.data.location];
+        product.slug = product.title.toLowerCase().replace(/\s+/g, "-");
         return insertProduct(product);
       })
-      .then(res => res.json())
       .then(res => {
-        console.log('Product inserted:', res);
+        if (!res.ok) throw new Error("Failed to insert product");
+        return res.json();
+      })
+      .then(res => {
+        console.log("Product inserted:", res);
+        setSuccessMessage("Created successfully");
+        setTimeout(() => setSuccessMessage(""), 3000);
+        resetForm();
       })
       .catch(err => {
-        console.error('Error during file upload or product insert:', err);
+        console.error(err);
+        setSuccessMessage(" Failed to create product");
+        setTimeout(() => setSuccessMessage(""), 3000);
+        
       });
-
-      alert("Created successful !");
-    } 
-      
-  };
+  }
+};
 
   return (
     <div className="container m-auto mt-23 mb-10">
         <h1 className='text-2xl text-center text-purple-800 font-bold mb-5'>Form Input Product</h1>
       <form onSubmit={OnHandleSubmit} className="max-w-sm mx-auto border-2 border-purple-800 rounded-2xl p-5">
+        {successMessage && (
+        <div className="mb-5 text-green-600 text-center font-semibold">
+          {successMessage}
+        </div>
+)}
         <div className="mb-5">
           <label className="block mb-2 text-sm font-medium text-gray-900">Title</label>
           <input
