@@ -2,20 +2,34 @@ import React, { useState, useEffect } from 'react';
 import LoadingComponent from './LoadingComponent';
 import { Link } from 'react-router-dom';
 import { fetchProduct } from '../Services/productAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllCategories, fetchAllProducts } from '../redux/actions/productAction';
 
 const CardComponent = () => {
 
-    const [products, setProduct] = useState([]);
+    const dispatch = useDispatch()
+    const {products} = useSelector(state=>state.proReducers)
+    const {categories} = useSelector(state=>state.proReducers)
+    // const [products, setProduct] = useState([]);
     const [loading , setLoading] = useState(true);
 
   useEffect(() => {
-    fetchProduct()
-    .then(res =>{
-      setLoading(false)
-      setProduct(res)
-    })
+    // subscribe to store
+    dispatch(fetchAllProducts())
+    dispatch(fetchAllCategories())
+    // fetchProduct()
+    // .then(res =>{
+    //   setLoading(false)
+    //   setProduct(res)
+    // })
      
   }, []);
+
+  useEffect(() => {
+    if (products && products.length > 0) {
+      setLoading(false);
+    }
+  }, [products]);
 
   return (
     <div>
@@ -25,6 +39,13 @@ const CardComponent = () => {
 
       <section>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-10 p-6 w-[90%] m-auto ">
+          {/* {
+            console.log(products && products)
+           
+          },{
+             console.log(categories && categories)
+          } */}
+
           {
             loading ? 
             (
