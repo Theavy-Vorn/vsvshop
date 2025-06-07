@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 
+  
 const HeaderComponent = () => {
+  const{ isLogin } = useSelector(state=>state.authReducer)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
@@ -66,7 +69,9 @@ const HeaderComponent = () => {
             <div className="flex items-center gap-4">
               <div className="sm:flex sm:gap-4 hidden md:flex">
                 <NavLink className="rounded-md bg-purple-800 px-5 py-2.5 text-sm font-medium text-white shadow-sm" to={"/login"}>
-                  Login
+                 {
+                  isLogin ? "Login" : "Logout"
+                 }
                 </NavLink>
                 <NavLink
                   className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black"
@@ -131,7 +136,10 @@ const HeaderComponent = () => {
                     onClick={handleLinkClick}
                     className="block bg-purple-800 text-white py-2 px-3 rounded"
                   >
-                    Login
+
+                   {
+                    isLogin ? "Login" : "Logout"
+                   }
                   </NavLink>
                   <NavLink
                     to={"/signup"}

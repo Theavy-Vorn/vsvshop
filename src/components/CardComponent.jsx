@@ -8,10 +8,12 @@ import { fetchAllCategories, fetchAllProducts } from '../redux/actions/productAc
 const CardComponent = () => {
 
     const dispatch = useDispatch()
-    const {products} = useSelector(state=>state.proReducers)
-    const {categories} = useSelector(state=>state.proReducers)
-    // const [products, setProduct] = useState([]);
-    const [loading , setLoading] = useState(true);
+    // const {products} = useSelector(state=>state.proReducers)
+    // const {categories} = useSelector(state=>state.proReducers)
+    // // const [products, setProduct] = useState([]);
+    // const [isLoading] = useSelector(state=>state.proReducers)
+    const { products, categories, isLoading } = useSelector(state => state.proReducers);
+
 
   useEffect(() => {
     // subscribe to store
@@ -25,11 +27,11 @@ const CardComponent = () => {
      
   }, []);
 
-  useEffect(() => {
-    if (products && products.length > 0) {
-      setLoading(false);
-    }
-  }, [products]);
+  // useEffect(() => {
+  //   if (products && products.length > 0) {
+  //     setLoading(false);
+  //   }
+  // }, [products]);
 
   return (
     <div>
@@ -47,7 +49,7 @@ const CardComponent = () => {
           } */}
 
           {
-            loading ? 
+            isLoading ? 
             (
             <div>
                 <LoadingComponent />

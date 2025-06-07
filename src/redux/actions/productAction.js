@@ -24,3 +24,5 @@ export const fetchAllCategories =()=>{
         .catch(err=>console.log('faild to fecth :',err))
     }
 }
+
+
