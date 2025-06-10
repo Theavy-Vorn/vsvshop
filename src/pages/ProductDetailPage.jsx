@@ -20,9 +20,10 @@ const ProductDetailPage = () => {
     },[])
    
     return (
-       <div className='min-h-screen bg-purple-100 flex items-center justify-center mt-15'>
-         <div className='w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl  bg-white rounded-xl shadow-md'>
-          <a href="#" className="group relative block overflow-hidden ibg-purple-500 shadow-lg shadow-purple-500/50 rounded-2xl">
+       <div className='pt-20 bg-white px-6 py-10'>
+         <div className='grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto'>
+          <div>
+            <a href="#" className="group relative block overflow-hidden ibg-purple-500 shadow-lg shadow-purple-500/50 rounded-2xl">
             <button
                 className="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75"
             >
@@ -79,6 +80,10 @@ const ProductDetailPage = () => {
                 </form>
             </div>
             </a>
+          </div>
+          <div>
+            card
+          </div>
         </div>
        </div>
     );

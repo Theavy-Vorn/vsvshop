@@ -9,13 +9,17 @@ const FooterComponent = () => {
                         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
                         <div>
                             <div className="text-teal-600 dark:text-teal-300 flex items-center">
-                                <img src="../../../assets/1.jpg" alt="" className='w-20 rounded-full ' />
+                               <Link to={"/"}>
+                                    <img src="../../../assets/1.jpg" alt="" className='w-20 rounded-full ' />
+                               </Link>
                                 <div className='font-bold text-purple-800 text-center text-2xl p-5'>VSV.Shop</div>
                             </div>
 
                             <p className="mt-4 max-w-xs ">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse non cupiditate quae nam
-                            molestias.
+                            VSVShop is an online shopping platform built to make buying and selling products in 
+                            Cambodia easier, faster, and more affordable. 
+
+
                             </p>
 
                             <ul className="mt-8 flex gap-6">
@@ -121,25 +125,25 @@ const FooterComponent = () => {
                             <ul className="mt-6 space-y-4 text-sm">
                                 <li>
                                 <a href="#" className=" transition hover:opacity-75">
-                                    1on1 Coaching
+                                    Fast Delivery
                                 </a>
                                 </li>
 
                                 <li>
                                 <a href="#" className=" transition hover:opacity-75 ">
-                                    Company Review
+                                    Easy Payment Options
                                 </a>
                                 </li>
 
                                 <li>
                                 <a href="#" className=" transition hover:opacity-75 ">
-                                    Accounts Review
+                                    Secure Shopping
                                 </a>
                                 </li>
 
                                 <li>
                                 <a href="#" className=" transition hover:opacity-75 ">
-                                    HR Consulting
+                                    24/7 Customer Support
                                 </a>
                                 </li>
 
@@ -217,11 +221,7 @@ const FooterComponent = () => {
                                 </a>
                                 </li>
 
-                                <li>
-                                <a href="#" className=" transition hover:opacity-75 ">
-                                    Hiring-3 Statistics
-                                </a>
-                                </li>
+                                
                             </ul>
                             </div>
                         </div>

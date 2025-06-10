@@ -25,4 +25,12 @@ export const fetchAllCategories =()=>{
     }
 }
 
+// In ../Services/productAction.js
+export const deleteProduct = async (id) => {
+    return await fetch(`${base_URL}products/${id}`, {
+        method: 'DELETE',
+    });
+};
+
+
 
