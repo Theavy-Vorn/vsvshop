@@ -15,6 +15,7 @@ import SignupPage from './pages/SignupPage';
 import CategoryPage from './pages/CategoryPage';
 import ProfilePage from './pages/ProfilePage';
 import ContactPage from './pages/ContactPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -30,7 +31,14 @@ function App() {
             <Route path={"/datatable"} element={<Dashboard />} />
             <Route path={"/create"} element={<FormProduct edit={false} />} />
             <Route path={"/edit"} element={<FormProduct  edit={true}/>} />
-            <Route path={"products/:id"} element={<ProductDetailPage />} /> 
+            <Route
+              path={"/product/:id"}
+              element={
+                <ProtectedRoute>
+                  <ProductDetailPage />
+                </ProtectedRoute>
+              }
+            />
           </Route>
           
         
