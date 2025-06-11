@@ -62,12 +62,12 @@ const HeaderComponent = () => {
             <div className="hidden md:block">
               <nav aria-label="Global">
                 <ul className="flex items-center gap-6 text-sm">
-                  <li><NavLink to="/" className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>Home</NavLink></li>
-                  <li><NavLink to="/about" className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>About</NavLink></li>
-                  <li><NavLink to="/service" className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>Service</NavLink></li>
-                  <li><NavLink to="/contact" className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>Contact</NavLink></li>
+                  <li><NavLink to="/" className={({ isActive }) => isActive ? "text-purple-800 font-bold active" : "text-white"}>Home</NavLink></li>
+                  <li><NavLink to="/about" className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>About</NavLink></li>
+                  <li><NavLink to="/service" className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>Service</NavLink></li>
+                  <li><NavLink to="/contact" className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>Contact</NavLink></li>
                   <li className="relative group">
-                    <span className="cursor-pointer text-white group-hover:text-red-800">
+                    <span className="cursor-pointer text-white group-hover:text-purple-800 ">
                       Category
                     </span>
                     <ul className="absolute top-full left-0 hidden group-hover:block bg-purple-300 rounded shadow-lg text-black w-48 z-50 py-2">
@@ -156,12 +156,12 @@ const HeaderComponent = () => {
               </div>
               <ul className="flex flex-col gap-2 text-sm text-white bg-purple-300 p-4 rounded shadow-lg">
                 <li><NavLink to="/" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>Home</NavLink></li>
-                <li><NavLink to="/about" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>About</NavLink></li>
-                <li><NavLink to="/service" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>Service</NavLink></li>
-                <li><NavLink to="/contact" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>Contact</NavLink></li>
+                <li><NavLink to="/about" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>About</NavLink></li>
+                <li><NavLink to="/service" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>Service</NavLink></li>
+                <li><NavLink to="/contact" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>Contact</NavLink></li>
                 {categories.map((cat) => (
                   <li key={cat.id}>
-                    <NavLink to={`/category/${cat.id}`} onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>
+                    <NavLink to={`/category/${cat.id}`} onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>
                       {cat.name}
                     </NavLink>
                   </li>
