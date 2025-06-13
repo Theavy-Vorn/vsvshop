@@ -1,7 +1,39 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const SignupPage = () => {
+    const [form, setForm] = useState({
+    email: '',
+    password: '',
+    avatar: 'https://api.lorem.space/image/face?w=150&h=150',
+  });
+
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('https://api.escuelajs.co/api/v1/users/', form);
+      if (res.status === 201) {
+        setStatus(' Registered successfully. You can now log in.');
+        setForm({
+          name: '',
+          email: '',
+          password: '',
+          avatar: 'https://api.lorem.space/image/face?w=150&h=150',
+        });
+      }
+    } catch (error) {
+      console.error('Registration Error:', error.response?.data || error.message);
+      setStatus(' Registration failed. Please try again.');
+    }
+  };
+
     return (
         <section className="bg-purple-100 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -21,7 +53,9 @@ const SignupPage = () => {
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Create an account
                     </h1>
-                    <form className="space-y-4 md:space-y-6" action="#">
+                    <form 
+                    onSubmit={handleSubmit}
+                    className="space-y-4 md:space-y-6" action="#">
                     <div>
                         <label
                         htmlFor="email"
@@ -33,6 +67,8 @@ const SignupPage = () => {
                         type="email"
                         name="email"
                         id="email"
+                        value={form.email}
+                        onChange={handleChange}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="name@company.com"
                         required=""
@@ -49,6 +85,8 @@ const SignupPage = () => {
                         type="password"
                         name="password"
                         id="password"
+                         value={form.password}
+                        onChange={handleChange}
                         placeholder="••••••••"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required=""
