@@ -16,6 +16,7 @@ import CategoryPage from './pages/CategoryPage';
 import ProfilePage from './pages/ProfilePage';
 import ContactPage from './pages/ContactPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import UserPage from './pages/UserPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path={"/about"} element={<AboutPage />} />
             <Route path={"/service"} element={<ServicePage />} />
             <Route path={"/contact"} element={<ContactPage />} />
+            <Route path="/users" element={<UserPage />} />
             <Route path="/category/:id" element={<CategoryPage />} />
             <Route path={"/datatable"} element={<Dashboard />} />
             <Route path={"/create"} element={<FormProduct edit={false} />} />

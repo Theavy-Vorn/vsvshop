@@ -3,5 +3,6 @@ export const actionType = {
   FETHC_CATEGORIES: "fetch_all_categories",
   LOGIN: "login",
   LOGOUT: "logout",
+  USERS: "USERS", 
   SET_PROFILE: "SET_PROFILE",
 };
