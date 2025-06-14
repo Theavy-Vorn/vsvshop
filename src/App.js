@@ -6,7 +6,7 @@ import HeaderComponent from './components/HeaderComponent';
 import FooterComponent from './components/FooterComponent';
 import ProductDetailPage from './pages/ProductDetailPage';
 import FormProduct from './pages/FormProduct';
-import Dashboard from './pages/Dashboard';
+import ProductTable from './pages/ProductTable';
 import NotFoundPage from './pages/NotFoundPage';
 import AboutPage from './pages/AboutPage';
 import ServicePage from './pages/ServicePage';
@@ -28,19 +28,21 @@ function App() {
             <Route path={"/about"} element={<AboutPage />} />
             <Route path={"/service"} element={<ServicePage />} />
             <Route path={"/contact"} element={<ContactPage />} />
-            <Route path="/users" element={<UserPage />} />
-            <Route path="/category/:id" element={<CategoryPage />} />
-            <Route path={"/datatable"} element={<Dashboard />} />
-            <Route path={"/create"} element={<FormProduct edit={false} />} />
+            <Route path={"/usertable"} element={<UserPage />} />
+            <Route path={"/category/:id"} element={<CategoryPage />} />
+            <Route path={"/producttable"} element={<ProductTable />} />
+            <Route path={"/createproduct"} element={<FormProduct edit={false} />} />
             <Route path={"/edit"} element={<FormProduct  edit={true}/>} />
-            <Route
-              path={"/product/:id"}
+
+            <Route path={"/products/:id"} element={<ProductDetailPage />} />
+            {/* <Route
+              path={"/products/:id"}
               element={
                 <ProtectedRoute>
                   <ProductDetailPage />
                 </ProtectedRoute>
               }
-            />
+            /> */}
           </Route>
           
         

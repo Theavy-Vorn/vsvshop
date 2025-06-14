@@ -1,5 +1,6 @@
 // import React, { useEffect, useState } from 'react';
 // import { useParams } from 'react-router-dom';
+// import { base_URL } from '../utils/constant';
 
 // const ProductDetailPage = () => {
 //     const [product,setProduct] = useState({
@@ -11,7 +12,7 @@
 //     })
 //     let {id} = useParams()
 //     let fectchDetailProduct = (id) =>{
-//         fetch(` https://api.escuelajs.co/api/v1/products/${id}`)
+//         fetch(`${base_URL}${id}`)
 //         .then(res => res.json())
 //         .then(res=>setProduct(res))
 //     }
