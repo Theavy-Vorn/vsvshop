@@ -16,7 +16,7 @@ import CategoryPage from './pages/CategoryPage';
 import ProfilePage from './pages/ProfilePage';
 import ContactPage from './pages/ContactPage';
 import ProtectedRoute from './components/ProtectedRoute';
-import UserPage from './pages/UserPage';
+import UserTable from './pages/UserTable';
 
 function App() {
   return (
@@ -28,13 +28,13 @@ function App() {
             <Route path={"/about"} element={<AboutPage />} />
             <Route path={"/service"} element={<ServicePage />} />
             <Route path={"/contact"} element={<ContactPage />} />
-            <Route path={"/usertable"} element={<UserPage />} />
+            <Route path={"/usertable"} element={<UserTable />} />
             <Route path={"/category/:id"} element={<CategoryPage />} />
             <Route path={"/producttable"} element={<ProductTable />} />
             <Route path={"/createproduct"} element={<FormProduct edit={false} />} />
-            <Route path={"/edit"} element={<FormProduct  edit={true}/>} />
-
+            <Route path={"/editproduct"} element={<FormProduct  edit={true}/>} />
             <Route path={"/products/:id"} element={<ProductDetailPage />} />
+            
             {/* <Route
               path={"/products/:id"}
               element={
@@ -48,7 +48,8 @@ function App() {
         
           <Route path={"/login"} element={<LoginPage />} />
           <Route path={"/profile"} element={<ProfilePage/>} />
-          <Route path={"/signup"} element={<SignupPage />} />  
+          <Route path={"/signup"} element={<SignupPage edit={false}/>} /> 
+          <Route path={"/editsignup"} element={<SignupPage  edit={true}/>} />   
           <Route path={"*"} element={<NotFoundPage />} /> 
         </Routes>
       </BrowserRouter>
