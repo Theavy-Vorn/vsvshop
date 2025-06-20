@@ -1,61 +1,73 @@
-// // src/redux/actions/authActions.js
-// import axios from "axios";
-// import { actionType } from "./actionType";
-// import secureLocalStorage from "react-secure-storage";
-// import { base_URL } from "../../utils/constant"; // or hardcode if needed
-
-// export const loginUser = (user) => {
-//   return (dispatch) => {
-//     return axios.post(`${base_URL}auth/login`, user, {
-//       headers: { "Content-Type": "application/json" },
-//     })
-//     .then(res => {
-//       if (res.status === 200 || res.status === 201) {
-//         const token = res.data.access_token;
-//         console.log("Token:", token); //  This logs the token in the browser console
-
-//         secureLocalStorage.setItem("auth", res.data);
-//         dispatch({
-//           type: actionType.LOGIN,
-//           payload: res.data,
-//         });
-
-//         return Promise.resolve(res.data);
-//       }
-//     })
-//     .catch(err => {
-//       console.error("Login failed:", err.response?.data || err.message);
-//       return Promise.reject(err);
-//     });
-//   };
-// };
-
 
 import axios from "axios";
 import { base_URL } from "../../utils/constant";
-
+import secureLocalStorage from "react-secure-storage";
 export const loginUser = (credentials) => async (dispatch) => {
   dispatch({ type: "LOGIN_REQUEST" });
 
   try {
-    const res = await axios.post(`${base_URL}login`, credentials);
+    const res = await axios.post(`${base_URL}auth/login`, credentials);
 
-    const { user, token } = res.data;
-    localStorage.setItem("token", token);
+    const { access_token } = res.data;
+
+    // Save token
+    localStorage.setItem("token", access_token);
+
+    // Optionally fetch profile here and return it
+    const profile = await axios.get(`${base_URL}auth/profile`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
 
     dispatch({
       type: "LOGIN_SUCCESS",
-      payload: { user, token },
+      payload: {
+        token: access_token,
+        user: profile.data,
+      },
     });
+
+    return res.data; // helpful if you want to access token in component
   } catch (error) {
     dispatch({
       type: "LOGIN_FAILURE",
       payload: error.response?.data?.message || "Login failed",
     });
+    throw error;
   }
 };
 
+export const profileUser = () => {
+  return async (dispatch) => {
+    dispatch({ type: "AUTH_LOADING" });
+
+    try {
+      const token = secureLocalStorage.getItem("token"); // make sure token is saved here on login
+
+      const response = await axios.get(`${base_URL}auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      dispatch({
+        type: "AUTH_SUCCESS",
+        payload: response.data,
+      });
+    } catch (error) {
+      dispatch({
+        type: "AUTH_ERROR",
+        payload: error.response?.data?.message || error.message,
+      });
+    }
+  };
+};
+// Logout user and clear token
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("token");
   dispatch({ type: "LOGOUT" });
 };
+
+
+

@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser,updateUser, userAction } from '../redux/actions/userAction';
+import { Eye, EyeOff } from "lucide-react";
 
 const SignupPage = ({ edit }) => {
   const dispatch = useDispatch();
-
+  const [showPassword, setShowPassword] = useState(false);
   // Redux users (optional: to see or update state)
   const usersFromRedux = useSelector((state) => state.userReducer.users);
 
@@ -175,7 +176,7 @@ const SignupPage = ({ edit }) => {
                   Password
                 </label>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
                   value={users.password}
@@ -186,7 +187,17 @@ const SignupPage = ({ edit }) => {
                   focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5
                   dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
                   dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                 
                 />
+                <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3/8 top-5/8
+                     transform -translate-y-1/2 text-gray-500 dark:text-gray-300"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
               </div>
 
               {/* Confirm Password */}

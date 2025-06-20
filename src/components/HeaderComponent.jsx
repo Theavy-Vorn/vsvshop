@@ -63,20 +63,15 @@ const HeaderComponent = () => {
               <nav aria-label="Global">
                 <ul className="flex items-center gap-6 text-sm">
                   <li><NavLink to="/" className={({ isActive }) => isActive ? "text-purple-800 font-bold active" : "text-white"}>Home</NavLink></li>
-                  <li><NavLink to="/about" className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>About</NavLink></li>
-                  <li><NavLink to="/service" className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>Service</NavLink></li>
-                  <li><NavLink to="/contact" className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>Contact</NavLink></li>
+                  <li><NavLink to="/about" className={({ isActive }) => isActive ? "text-purple-800 font-bold active" : "text-white"}>About</NavLink></li>
+                  <li><NavLink to="/service" className={({ isActive }) => isActive ? "text-purple-800 font-bold active" : "text-white"}>Service</NavLink></li>
+                  <li><NavLink to="/contact" className={({ isActive }) => isActive ? "text-purple-800 font-bold active" : "text-white"}>Contact</NavLink></li>
                   <li className="relative group">
-                    <span className="cursor-pointer text-white group-hover:text-purple-800 ">
-                      Category
-                    </span>
+                    <span className="cursor-pointer text-white group-hover:text-purple-800">Category</span>
                     <ul className="absolute top-full left-0 hidden group-hover:block bg-purple-300 rounded shadow-lg text-black w-48 z-50 py-2">
                       {categories.map((cat) => (
                         <li key={cat.id}>
-                          <NavLink
-                            to={`/category/${cat.id}`}
-                            className="block px-4 py-2 hover:bg-purple-400"
-                          >
+                          <NavLink to={`/category/${cat.id}`} className="block px-4 py-2 hover:bg-purple-400">
                             {cat.name}
                           </NavLink>
                         </li>
@@ -87,40 +82,42 @@ const HeaderComponent = () => {
               </nav>
             </div>
 
-            {/* Right side */}
+            {/* Right side: login/logout or avatar */}
             <div className="flex items-center gap-4">
-              {/* <div className="hidden md:flex gap-4">
-                <NavLink className="rounded-md bg-purple-800 px-5 py-2.5 text-sm font-medium text-white shadow-sm" to="/login">
-                  {isLogin ? "Logout" : "Login"}
-                </NavLink>
-                <NavLink className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black" to="/signup">
-                  Signup
-                </NavLink>
-              </div> */}
-
-              {/* User Avatar */}
-              <div className="relative" ref={userMenuRef}>
-                <img
-                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  src="https://i.pinimg.com/736x/48/c4/cd/48c4cd0d71851a6c33dee9b486830c36.jpg"
-                  alt="User"
-                  className="w-10 h-10 rounded-full cursor-pointer border-2 border-white"
-                />
-                {isUserMenuOpen && (
-                  <ul className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded text-sm z-50">
-                    <li>
-                      <Link to="/profile" onClick={handleLinkClick} className="block px-4 py-2 hover:bg-gray-100">
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/login" onClick={handleLinkClick} className="block px-4 py-2 hover:bg-gray-100">
-                        Logout
-                      </Link>
-                    </li>
-                  </ul>
-                )}
-              </div>
+              {/* Desktop Buttons */}
+              {!isLogin ? (
+                <div className="hidden md:flex gap-4">
+                  <NavLink to="/login" className="rounded-md bg-purple-800 px-5 py-2.5 text-sm font-medium text-white shadow-sm">
+                    Login
+                  </NavLink>
+                  <NavLink to="/signup" className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-black">
+                    Signup
+                  </NavLink>
+                </div>
+              ) : (
+                <div className="relative" ref={userMenuRef}>
+                  <img
+                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                    src="https://i.pinimg.com/736x/48/c4/cd/48c4cd0d71851a6c33dee9b486830c36.jpg"
+                    alt="User"
+                    className="w-10 h-10 rounded-full cursor-pointer border-2 border-white"
+                  />
+                  {isUserMenuOpen && (
+                    <ul className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded text-sm z-50">
+                      <li>
+                        <Link to="/profile" onClick={handleLinkClick} className="block px-4 py-2 hover:bg-gray-100">
+                          Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/login" onClick={handleLinkClick} className="block px-4 py-2 hover:bg-gray-100">
+                          Logout
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+                </div>
+              )}
 
               {/* Hamburger Button */}
               <div className="block md:hidden">
@@ -147,33 +144,40 @@ const HeaderComponent = () => {
           {isMobileMenuOpen && (
             <nav ref={menuRef} className="md:hidden mt-2 animate-fadeIn" aria-label="Mobile Navigation">
               <div className="flex items-center gap-2 pb-4 border-b border-white">
-                <img
-                  src="https://i.pinimg.com/736x/48/c4/cd/48c4cd0d71851a6c33dee9b486830c36.jpg"
-                  alt="User"
-                  className="w-10 h-10 rounded-full"
-                />
-                <span className="text-white text-sm">Hello, User</span>
+                {isLogin && (
+                  <>
+                    <img
+                      src="https://i.pinimg.com/736x/48/c4/cd/48c4cd0d71851a6c33dee9b486830c36.jpg"
+                      alt="User"
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <span className="text-white text-sm">Hello, User</span>
+                  </>
+                )}
               </div>
               <ul className="flex flex-col gap-2 text-sm text-white bg-purple-300 p-4 rounded shadow-lg">
                 <li><NavLink to="/" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-red-800 active" : "text-white"}>Home</NavLink></li>
-                <li><NavLink to="/about" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>About</NavLink></li>
-                <li><NavLink to="/service" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>Service</NavLink></li>
-                <li><NavLink to="/contact" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>Contact</NavLink></li>
+                <li><NavLink to="/about" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold active" : "text-white"}>About</NavLink></li>
+                <li><NavLink to="/service" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold active" : "text-white"}>Service</NavLink></li>
+                <li><NavLink to="/contact" onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold active" : "text-white"}>Contact</NavLink></li>
                 {categories.map((cat) => (
                   <li key={cat.id}>
-                    <NavLink to={`/category/${cat.id}`} onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold  active" : "text-white"}>
+                    <NavLink to={`/category/${cat.id}`} onClick={handleLinkClick} className={({ isActive }) => isActive ? "text-purple-800 font-bold active" : "text-white"}>
                       {cat.name}
                     </NavLink>
                   </li>
                 ))}
-                {/* <li>
-                  <NavLink to="/login" onClick={handleLinkClick} className="block bg-purple-800 text-white py-2 px-3 rounded">
-                    {isLogin ? "Logout" : "Login"}
-                  </NavLink>
-                  <NavLink to="/signup" onClick={handleLinkClick} className="block bg-white text-black py-2 px-3 rounded">
-                    Signup
-                  </NavLink>
-                </li> */}
+                {isLogin ? (
+                  <>
+                    <li><NavLink to="/profile" onClick={handleLinkClick} className="block py-2 px-3 text-black hover:bg-purple-200 rounded">Profile</NavLink></li>
+                    <li><NavLink to="/login" onClick={handleLinkClick} className="block py-2 px-3 text-black hover:bg-purple-200 rounded">Logout</NavLink></li>
+                  </>
+                ) : (
+                  <>
+                    <li><NavLink to="/login" onClick={handleLinkClick} className="block bg-purple-800 text-white py-2 px-3 rounded">Login</NavLink></li>
+                    <li><NavLink to="/signup" onClick={handleLinkClick} className="block bg-white text-black py-2 px-3 rounded">Signup</NavLink></li>
+                  </>
+                )}
               </ul>
             </nav>
           )}

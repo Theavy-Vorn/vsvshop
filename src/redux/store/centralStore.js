@@ -5,4 +5,3 @@ import { thunk } from "redux-thunk";
 const middleWare =[thunk]
 export const centralStore = legacy_createStore(rootReducer,compose(applyMiddleware(...middleWare)))
 
-
