@@ -25,20 +25,22 @@ const CategoryPage = () => {
   }, [products, id]);
 
   return (
-    <div className="p-4 pt-20 bg-purple-100">
+    <div className="pt-20 bg-purple-100 mb-10">
       <h2 className="text-2xl font-bold text-center text-purple-700">Category Products</h2>
       {filteredProducts.length === 0 ? (
         <p className="text-gray-600">No products found in this category.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-10 p-6 w-[90%] m-auto ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-10  w-[90%] m-auto mt-5 ">
           {filteredProducts.map((product) => (
-            <div key={product.id} className="bg-white rounded-2xl  p-4 ibg-purple-500 shadow-lg shadow-purple-500/50">
+            <div key={product.id} className="bg-white rounded-2xl   ibg-purple-500 shadow-lg shadow-purple-500/50">
               <Link to={`/products/${product.id}`}>
-                <img src={product.images?.[0]} alt={product.title} className="w-full h-50 object-cover rounded" />
+                <img src={product.images?.[0]} alt={product.title} className="w-full h-50 object-cover rounded-2xl" />
               </Link>
-              <h3 className="text-lg font-semibold mt-5">{product.title}</h3>
-              <p className="text-sm text-gray-700 mb-5 mt-3 font-bold text-red-500">${product.price}</p>
-              <div>
+              <div className='px-5'>
+                <h3 className="text-lg font-semibold mt-5">{product.title}</h3>
+                <p className="text-sm text-gray-700 mb-5 mt-3 font-bold text-red-500">${product.price}</p>
+              </div>
+              <div className='p-5'>
                 <Link to={`/products/${product.id}`}>
                   <button
                     className="block w-full rounded-sm bg-purple-800 px-4 py-3 text-sm font-medium text-white transition hover:scale-105"

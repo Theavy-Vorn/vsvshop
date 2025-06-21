@@ -1,7 +1,7 @@
+// src/redux/actions/actionType.js
 export const actionType = {
   FETCH_PRODUCTS: "fetch_all_products",
-  FETHC_CATEGORIES: "fetch_all_categories",
-  LOGIN: "login",
+  FETCH_CATEGORIES: "fetch_all_categories", // ✅ make sure the spelling is correct
   LOGOUT: "logout",
   USERS: "USERS", 
   SET_PROFILE: "SET_PROFILE",

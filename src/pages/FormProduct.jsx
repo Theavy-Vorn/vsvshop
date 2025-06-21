@@ -142,87 +142,91 @@ const FormProduct = ({edit})=> {
 };
 
   return (
-    <div className="container m-auto mt-23 mb-10">
-        <h1 className='text-2xl text-center text-purple-800 font-bold mb-5'>Form Input Product</h1>
-      <form onSubmit={OnHandleSubmit} className="max-w-sm mx-auto border-2 border-purple-800 rounded-2xl p-5">
-        {successMessage && (
-        <div className="mb-5 text-green-600 text-center font-semibold">
-          {successMessage}
-        </div>
+    <div class="p-4 sm:ml-64">
+        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-purple-100">
+          <div className="container m-auto mb-10 border-purple-100">
+            <h1 className='text-2xl text-center text-purple-800 font-bold mb-5'>Form Input Product</h1>
+          <form onSubmit={OnHandleSubmit} className="max-w-sm mx-auto border-2 border-purple-800 rounded-2xl p-5">
+            {successMessage && (
+            <div className="mb-5 text-green-600 text-center font-semibold">
+              {successMessage}
+            </div>
 
-        )}
-        <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Title</label>
-          <input
-            type="text"
-            name="title"
-            value={product.title}
-            onChange={OnChangeHandle}
-            className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5"
-            placeholder="Shirt"
-            required
-          />
-        </div>
+            )}
+            <div className="mb-5">
+              <label className="block mb-2 text-sm font-medium text-gray-900">Title</label>
+              <input
+                type="text"
+                name="title"
+                value={product.title}
+                onChange={OnChangeHandle}
+                className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                placeholder="Shirt"
+                required
+              />
+            </div>
 
-        <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Price $</label>
-          <input
-            type="number"
-            name="price"
-            value={product.price}
-            onChange={OnChangeHandle}
-            className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5"
-            placeholder="$300"
-            required
-          />
-        </div>
+            <div className="mb-5">
+              <label className="block mb-2 text-sm font-medium text-gray-900">Price $</label>
+              <input
+                type="number"
+                name="price"
+                value={product.price}
+                onChange={OnChangeHandle}
+                className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                placeholder="$300"
+                required
+              />
+            </div>
 
-        <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Choose Category</label>
-          <select
-            name="categoryId"
-            value={product.categoryId}
-            onChange={OnChangeHandle}
-            className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5"
-          >
-            {categories.map(cat => (
-              <option key={cat.id} value={cat.id}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
-        </div>
+            <div className="mb-5">
+              <label className="block mb-2 text-sm font-medium text-gray-900">Choose Category</label>
+              <select
+                name="categoryId"
+                value={product.categoryId}
+                onChange={OnChangeHandle}
+                className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+              >
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Description</label>
-          <textarea
-            name="description"
-            value={product.description}
-            onChange={OnChangeHandle}
-            className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5"
-            placeholder="It is made by ..."
-            required
-          />
-        </div>
-        <div className="mb-5 preview">
-           <label className="block mb-2 text-sm font-medium text-gray-900">Choose Image</label>
-           <img crossOrigin="anonymous" 
-           src={source =="" ? product.images[0] : URL.createObjectURL(source)} 
-           alt="" style={{width:100}}/>
-        </div>
+            <div className="mb-5">
+              <label className="block mb-2 text-sm font-medium text-gray-900">Description</label>
+              <textarea
+                name="description"
+                value={product.description}
+                onChange={OnChangeHandle}
+                className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                placeholder="It is made by ..."
+                required
+              />
+            </div>
+            <div className="mb-5 preview">
+              <label className="block mb-2 text-sm font-medium text-gray-900">Choose Image</label>
+              <img crossOrigin="anonymous" 
+              src={source =="" ? product.images[0] : URL.createObjectURL(source)} 
+              alt="" style={{width:100}}/>
+            </div>
 
-        <div className="mb-5 ">
-            <input type="file"  className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" name="image" id="" onChange={onPreview} /> 
-        </div>
+            <div className="mb-5 ">
+                <input type="file"  className="bg-gray-50 border border-gray-300 text-sm rounded-lg block w-full p-2.5" name="image" id="" onChange={onPreview} /> 
+            </div>
 
-        <button
-          type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
-        >
-         {edit ? "Update Product" : "Create Product"}
-        </button>
-      </form>
-    </div>
+            <button
+              type="submit"
+              className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center"
+            >
+            {edit ? "Update Product" : "Create Product"}
+            </button>
+          </form>
+        </div>
+        </div>
+      </div>
   );
 };
 
