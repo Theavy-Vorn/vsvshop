@@ -2,42 +2,8 @@
 import axios from "axios";
 import { base_URL } from "../../utils/constant";
 import secureLocalStorage from "react-secure-storage";
-// export const loginUser = (credentials) => async (dispatch) => {
-//   dispatch({ type: "LOGIN_REQUEST" });
 
-//   try {
-//     const res = await axios.post(`${base_URL}auth/login`, credentials);
-
-//     const { access_token } = res.data;
-
-//     // Save token
-//     localStorage.setItem("token", access_token);
-
-//     // Optionally fetch profile here and return it
-//     const profile = await axios.get(`${base_URL}auth/profile`, {
-//       headers: {
-//         Authorization: `Bearer ${access_token}`,
-//       },
-//     });
-
-//     dispatch({
-//       type: "LOGIN_SUCCESS",
-//       payload: {
-//         token: access_token,
-//         user: profile.data,
-//       },
-//     });
-
-//     return res.data; // helpful if you want to access token in component
-//   } catch (error) {
-//     dispatch({
-//       type: "LOGIN_FAILURE",
-//       payload: error.response?.data?.message || "Login failed",
-//     });
-//     throw error;
-//   }
-// };
-
+// Login user action
 export const loginUser = (credentials) => async (dispatch) => {
   dispatch({ type: "LOGIN_REQUEST" });
 
@@ -45,31 +11,26 @@ export const loginUser = (credentials) => async (dispatch) => {
     const res = await axios.post(`${base_URL}auth/login`, credentials);
     const { access_token } = res.data;
 
-    // Save token to localStorage
-    localStorage.setItem("token", access_token);
-
     // Fetch profile using token
-    const profile = await axios.get(`${base_URL}auth/profile`, {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
+    const profileRes = await axios.get(`${base_URL}auth/profile`, {
+      headers: { Authorization: `Bearer ${access_token}` },
     });
 
-    // Dispatch login success with token and profile
-    dispatch({
-      type: "LOGIN_SUCCESS",
-      payload: {
-        token: access_token,
-        user: profile.data,
-      },
-    });
-
-    // Return token and user info so LoginPage can use them
-    return {
-      access_token,
-      user: profile.data,
+    const authData = {
+      token: access_token,
+      user: profileRes.data,
     };
 
+    // Save to secure storage
+    secureLocalStorage.setItem("auth", authData);
+
+    // Dispatch success
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: authData,
+    });
+
+    return authData;
   } catch (error) {
     dispatch({
       type: "LOGIN_FAILURE",
@@ -78,6 +39,25 @@ export const loginUser = (credentials) => async (dispatch) => {
     throw error;
   }
 };
+
+// Load auth from secure storage on app start
+export const loadAuthFromStorage = () => (dispatch) => {
+  const authData = secureLocalStorage.getItem("auth");
+  if (authData?.token && authData?.user) {
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: authData,
+    });
+  }
+};
+
+// Logout action
+export const logoutUser = () => (dispatch) => {
+  secureLocalStorage.removeItem("auth");
+  dispatch({ type: "LOGOUT" });
+};
+
+
 
 
 export const profileUser = () => {
@@ -105,11 +85,10 @@ export const profileUser = () => {
     }
   };
 };
-// Logout user and clear token
-export const logoutUser = () => (dispatch) => {
-  localStorage.removeItem("token");
-  dispatch({ type: "LOGOUT" });
-};
+
+
+
+
 
 
 

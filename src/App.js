@@ -1,7 +1,7 @@
 
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { profileUser } from "./redux/actions/authAction";
+import { loadAuthFromStorage, profileUser } from "./redux/actions/authAction";
 import { BrowserRouter, Outlet, Route ,Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import HeaderComponent from './components/HeaderComponent';
@@ -23,6 +23,7 @@ import Dashboard from "./pages/ProductTable";
 import DashboardPage from "./pages/DashboardPage";
 import Signupuserdashboard from "./pages/Signupuserdashboard";
 import CategoryDashboard from "./pages/CategoryDashboard";
+import secureLocalStorage from "react-secure-storage";
 
 
 
@@ -31,14 +32,12 @@ import CategoryDashboard from "./pages/CategoryDashboard";
 function App() {
   const dispatch = useDispatch();
 
+  // On app load, try to load auth from storage
   useEffect(() => {
-    // Load token from localStorage on app start
-    const token = localStorage.getItem("token");
-    if (token) {
-      dispatch({ type: "LOAD_TOKEN", payload: token });
-      dispatch(profileUser());
-    }
+    dispatch(loadAuthFromStorage());
   }, [dispatch]);
+
+
 
   return (
     <div>
