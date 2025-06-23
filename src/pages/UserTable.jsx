@@ -15,15 +15,24 @@ const UserPage = () => {
             name: "ID",
             selector: row => row.id,
         },
-        {
-            name: "Full Name",
-            selector: row => row.name,
-            sortable: true
-        },
+        // {
+        //     name: "Full Name",
+        //     selector: row => row.name,
+        //     sortable: true
+        // },
         {
             name: "Email",
             selector:row=>row.email
         },
+        {
+            name: "Role",
+            selector:row=>row.role
+        },
+        {
+            name: "password",
+            selector:row=>row.password
+        },
+        
         {
             name: "Actions",
             selector: row => (
@@ -91,7 +100,7 @@ const UserPage = () => {
   return (
     <div class="p-4 sm:ml-64">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-            <div className="w-[95%] m-auto">
+            <div className="w-full m-auto">
                     {successMessage && (
                         <div className="fixed top-15 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-800 px-6 py-3 rounded-xl shadow-lg z-50 transition-all duration-300">
                             {successMessage}

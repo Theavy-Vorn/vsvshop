@@ -24,6 +24,7 @@ import DashboardPage from "./pages/DashboardPage";
 import Signupuserdashboard from "./pages/Signupuserdashboard";
 import CategoryDashboard from "./pages/CategoryDashboard";
 import secureLocalStorage from "react-secure-storage";
+import AdminRoute from "./components/AdminRoute";
 
 
 
@@ -60,14 +61,16 @@ function App() {
           </Route>
           
           <Route  element={<MainDashboard />}>
-            {/* <Route path={"/dashboard"} element={<DashboardPage />} /> */}
-            <Route path={"/dashboardcategory"} element={<CategoryDashboard />} />
-            <Route path={"/producttable"} element={<ProductTable />} />
-            <Route path={"/usertable"} element={<UserTable />} />
-            <Route path={"/createproduct"} element={<FormProduct edit={false} />} />
-            <Route path={"/editproduct"} element={<FormProduct  edit={true}/>} />
-            <Route path={"/editsignupuser"} element={<Signupuserdashboard edit={true}/>} />  
-            <Route path={"/signupuser"} element={<Signupuserdashboard  edit={false}/>} /> 
+            <Route element={<AdminRoute />}> 
+              {/* <Route path={"/dashboard"} element={<DashboardPage />} /> */}
+              <Route path={"/dashboardcategory"} element={<CategoryDashboard />} />
+              <Route path={"/producttable"} element={<ProductTable />} />
+              <Route path={"/usertable"} element={<UserTable />} />
+              <Route path={"/createproduct"} element={<FormProduct edit={false} />} />
+              <Route path={"/editproduct"} element={<FormProduct  edit={true}/>} />
+              <Route path={"/editsignupuser"} element={<Signupuserdashboard edit={true}/>} />  
+              <Route path={"/signupuser"} element={<Signupuserdashboard  edit={false}/>} /> 
+            </Route>
           </Route>
 
 

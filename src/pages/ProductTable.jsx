@@ -13,12 +13,17 @@ export default function Dashboard() {
 
     const columns = [
         {
+            name: "ID",
+            selector: row => row.id,
+           
+        },
+        {
             name: "Title",
             selector: row => row.title,
             sortable: true
         },
         {
-            name: "Price",
+            name: "Price $",
             selector: row => row.price,
             sortable: true
         },
