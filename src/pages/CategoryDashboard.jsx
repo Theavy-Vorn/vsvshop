@@ -44,7 +44,7 @@ const CategoryDashboard = () => {
   }, {});
 
   return (
-    <div className="p-4 sm:ml-64 w-[80%]">
+    <div className="p-4 sm:ml-64 w-[80%] m-auto">
       <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
         <h1 className="text-xl font-bold mb-4 text-purple-800">Category Cards</h1>
 

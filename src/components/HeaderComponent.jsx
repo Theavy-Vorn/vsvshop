@@ -250,13 +250,13 @@ const HeaderComponent = () => {
               <ul className="flex flex-col gap-2 text-sm text-white bg-purple-300 p-4 rounded shadow-lg">
                 <li>
                   <NavLink
-                    to="/"
+                    to="/dashboardcategory"
                     onClick={handleLinkClick}
                     className={({ isActive }) =>
                       isActive ? "text-red-800 active" : "text-white"
                     }
                   >
-                    Home
+                    Dashboard
                   </NavLink>
                 </li>
                 <li>
